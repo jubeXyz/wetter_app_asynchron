@@ -20,10 +20,10 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    weatherData = initializeWeatherData();
+    weatherData = getWeatherData();
   }
 
-  WeatherData initializeWeatherData() {
+  WeatherData getWeatherData() {
     const jsonString = """
  {
     "city": "Stuttgart",
@@ -121,7 +121,7 @@ class _MainAppState extends State<MainApp> {
                 ),
                 OutlinedButton(
                     onPressed: () {
-                      weatherData = initializeWeatherData();
+                      weatherData = getWeatherData();
                       setState(() {});
                     },
                     child: const Text("Vorhersage updaten"))
