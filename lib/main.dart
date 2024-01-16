@@ -1,19 +1,54 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:wetter_app_asynchron/weather_data.dart';
 
 void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  late WeatherData weatherData;
+
+  @override
+  void initState() {
+    super.initState();
+    weatherData = initializeWeatherData();
+  }
+
+  WeatherData initializeWeatherData() {
+    const jsonString = """
+ {
+    "city": "Stuttgart",
+     "latitude": 48.78,
+     "longitude": 9.18,
+     "current": {
+         "time": "2024-01-12T11:45",
+         "temperature_2m": -3.6,
+         "apparent_temperature": -7.0,
+         "is_day": 1,
+         "precipitation": 12.00
+     }
+ }
+ """;
+    Map<String, dynamic> jsonData = json.decode(jsonString);
+    return WeatherData.fromJson(jsonData);
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 238, 232, 248),
-          title: Text("Wetter App"),
+          backgroundColor: const Color.fromARGB(255, 238, 232, 248),
+          title: const Text("Wetter App"),
         ),
         body: Center(
           child: Padding(
@@ -21,37 +56,75 @@ class MainApp extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "Stadt:",
-                  style: TextStyle(
+                  "Stadt: ${weatherData.city}",
+                  style: const TextStyle(
                     fontSize: 24,
                     color: Colors.blue,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text("Gefühlte Temperatur:"),
-                SizedBox(
+                Text(
+                  "Gefühlte Temperatur: ${weatherData.apparent_temperature}",
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                const SizedBox(
                   height: 10,
                 ),
-                Text("Temperatur:"),
-                SizedBox(
+                Text(
+                  "Temperatur: ${weatherData.temperature_2m}",
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                const SizedBox(
                   height: 10,
                 ),
-                Text("Niederschlag:"),
-                SizedBox(
+                Text(
+                  "Niederschlag: ${weatherData.precipitation}",
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                const SizedBox(
                   height: 10,
                 ),
-                Text("Tageszeit:"),
-                SizedBox(
+                Text(
+                  "Tageszeit: ${weatherData.time}",
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                const SizedBox(
                   height: 10,
                 ),
-                Text("Standort:"),
-                SizedBox(
+                Text(
+                  "Tageszeit: ${weatherData.is_day}",
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "Standort: ${weatherData.longitude} ${weatherData.latitude}",
+                  style: const TextStyle(
+                    fontSize: 10,
+                  ),
+                ),
+                const SizedBox(
                   height: 10,
                 ),
                 OutlinedButton(
-                    onPressed: () {}, child: Text("Vorhersage updaten"))
+                    onPressed: () {
+                      weatherData = initializeWeatherData();
+                      setState(() {});
+                    },
+                    child: const Text("Vorhersage updaten"))
               ],
             ),
           ),
