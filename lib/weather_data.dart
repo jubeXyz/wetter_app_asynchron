@@ -1,5 +1,4 @@
 class WeatherData {
-  final String city;
   final double latitude;
   final double longitude;
   final String time;
@@ -9,7 +8,6 @@ class WeatherData {
   final double precipitation;
 
   WeatherData({
-    required this.city,
     required this.latitude,
     required this.longitude,
     required this.time,
@@ -20,8 +18,7 @@ class WeatherData {
   });
 
   WeatherData.fromJson(Map<String, dynamic> json)
-      : city = json["city"] ?? 0.0,
-        latitude = json["latitude"] ?? 0.0,
+      : latitude = json["latitude"] ?? 0.0,
         longitude = json["longitude"] ?? 0.0,
         time = json["current"]["time"] ?? 0.0,
         temperature_2m = json["current"]["temperature_2m"] ?? 0.0,
