@@ -175,11 +175,11 @@ class _MainAppState extends State<MainApp> {
                               color: const Color.fromARGB(255, 40, 177, 182),
                               child: Center(
                                 child: Text(
-                                  "${weatherData.is_day}",
+                                  weatherData.is_day == 0 ? "Nacht" : "Tag",
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.yellow,
+                                    color: Colors.white,
                                   ),
                                 ),
                               ),
