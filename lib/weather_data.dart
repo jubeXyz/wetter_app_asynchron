@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class WeatherData {
   final double latitude;
   final double longitude;
@@ -25,4 +27,10 @@ class WeatherData {
         apparent_temperature = json["current"]["apparent_temperature"] ?? 0.0,
         is_day = json["current"]["is_day"] ?? 0.0,
         precipitation = json["current"]["precipitation"] ?? 0.0;
+}
+
+String formatTime(String rawTime) {
+  DateTime dateTime = DateTime.parse(rawTime);
+  String formattedTime = DateFormat("dd-MM-yyyy HH:mm").format(dateTime);
+  return formattedTime;
 }

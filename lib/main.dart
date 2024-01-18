@@ -20,14 +20,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     super.initState();
-    initWeatherData();
-  }
-
-  void initWeatherData() async {
-    WeatherData incomingData = await WeatherDataRepository().getWeatherData();
-    setState(() {
-      weatherData = incomingData;
-    });
+    updateWeatherData();
   }
 
   void updateWeatherData() async {
@@ -43,14 +36,14 @@ class _MainAppState extends State<MainApp> {
       home: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: const Color.fromARGB(255, 7, 61, 106),
           title: const Text(
-            "Wetter App",
+            "",
             style: TextStyle(color: Colors.white),
           ),
         ),
         body: Container(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 7, 61, 106),
           child: Center(
             child: Column(
               children: [
@@ -101,7 +94,7 @@ class _MainAppState extends State<MainApp> {
                             child: Container(
                               height: 100,
                               width: 100,
-                              color: const Color.fromARGB(255, 53, 135, 203),
+                              color: const Color.fromARGB(255, 53, 150, 203),
                               child: Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -136,7 +129,7 @@ class _MainAppState extends State<MainApp> {
                             child: Container(
                               height: 100,
                               width: 100,
-                              color: const Color.fromARGB(255, 113, 173, 222),
+                              color: const Color.fromARGB(255, 143, 206, 238),
                               child: Center(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +142,7 @@ class _MainAppState extends State<MainApp> {
                                         fontWeight: FontWeight.bold,
                                         height: 1.2,
                                         color:
-                                            Color.fromARGB(255, 32, 113, 180),
+                                            Color.fromARGB(255, 27, 128, 168),
                                       ),
                                     ),
                                     const SizedBox(height: 5),
@@ -172,12 +165,12 @@ class _MainAppState extends State<MainApp> {
                             child: Container(
                               height: 100,
                               width: 100,
-                              color: const Color.fromARGB(255, 40, 177, 182),
+                              color: const Color.fromARGB(255, 46, 170, 208),
                               child: Center(
                                 child: Text(
                                   weatherData.is_day == 0 ? "Nacht" : "Tag",
                                   style: const TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                   ),
@@ -229,7 +222,7 @@ class _MainAppState extends State<MainApp> {
                             child: Container(
                               height: 100,
                               width: 100,
-                              color: const Color.fromARGB(255, 17, 174, 195),
+                              color: const Color.fromARGB(255, 24, 188, 210),
                               child: Center(
                                 child: Text(
                                   "Niederschlag: ${weatherData.precipitation}",
@@ -251,7 +244,7 @@ class _MainAppState extends State<MainApp> {
                               color: const Color.fromARGB(255, 7, 61, 106),
                               child: Center(
                                 child: Text(
-                                  "Uhrzeit: ${weatherData.time}",
+                                  formatTime(weatherData.time),
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -267,11 +260,23 @@ class _MainAppState extends State<MainApp> {
                   ),
                 ),
                 OutlinedButton(
-                    onPressed: () {
-                      weatherData = updateWeatherData() as WeatherData;
-                      setState(() {});
-                    },
-                    child: const Text("Wetter updaten"))
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                      color: Colors.transparent,
+                    ),
+                  ),
+                  onPressed: () {
+                    weatherData = updateWeatherData() as WeatherData;
+                    setState(() {});
+                  },
+                  child: const Text(
+                    "Update",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
